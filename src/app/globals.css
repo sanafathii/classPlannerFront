@@ -12,6 +12,23 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Local fonts */
+@font-face {
+  font-family: "IRANSansWebFaNum";
+  src: url("/fonts/IRANSansWeb(FaNum).woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lalezar";
+  src: url("/fonts/Lalezar-Regular a4fran3.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -22,5 +39,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "IRANSansWebFaNum", Arial, Helvetica, sans-serif;
 }
