@@ -73,6 +73,11 @@ function UploadTab({ endpoint }) {
 
     const formData = new FormData();
     formData.append("file", file);
+
+    if (endpoint === "/messages/upload") {
+      formData.append("classId", "1");
+    }
+
     setLoading(true);
 
     try {
