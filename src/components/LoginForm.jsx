@@ -2,7 +2,9 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
+import { Eye, EyeOff } from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 export default function LoginForm() {
   const {
@@ -11,6 +13,7 @@ export default function LoginForm() {
     formState: { errors, isSubmitting },
   } = useForm();
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data) => {
     try {
@@ -91,13 +94,22 @@ export default function LoginForm() {
 
         <div className="flex flex-col text-right">
           <label className="mb-1 font-medium text-[#005792]">رمز عبور</label>
-          <input
-            type="password"
-            {...register("password", { required: "رمز عبور الزامی است" })}
-            className="w-full p-3 rounded-xl border outline-none focus:ring-2 focus:ring-[#00bbf0]"
-            style={{ borderColor: "#00bbf0" }}
-            placeholder="••••••••"
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              {...register("password", { required: "رمز عبور الزامی است" })}
+              className="w-full p-3  rounded-xl border outline-none focus:ring-2 focus:ring-[#00bbf0]"
+              style={{ borderColor: "#00bbf0" }}
+              placeholder="••••••••"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 left-3 flex items-center text-gray-500 hover:text-gray-700"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
           {errors.password && (
             <span className="text-red-500 text-xs mt-1">
               {errors.password.message}

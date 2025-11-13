@@ -10,7 +10,7 @@ export default function HomePage() {
 
   return (
     <ProtectedLayout>
-      <div className="flex flex-row-reverse h-screen bg-[#00204a] text-white">
+      <div className="flex flex-col h-screen bg-[#00204a] text-white">
         <Sidebar page={page} setPage={setPage} />
 
         <main className="flex-1 p-8 overflow-y-auto">
@@ -18,7 +18,6 @@ export default function HomePage() {
           {page === "table" && <TablePage />}
         </main>
       </div>
-      //{" "}
     </ProtectedLayout>
   );
 }

@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import moment from "moment-jalaali";
 
 moment.loadPersian({ usePersianDigits: true });
@@ -44,7 +46,7 @@ function DataTable({ columns, data }) {
   return (
     <table className="w-full text-left border-collapse">
       <thead>
-        <tr className="bg-gray-700">
+        <tr className="bg-[#5fc9f3]/70 text-black">
           {columns.map((col) => (
             <th key={col.key} className="border px-4 py-2">
               {col.label}
@@ -56,7 +58,7 @@ function DataTable({ columns, data }) {
         {data.map((item, i) => (
           <tr
             key={item.id || i}
-            className={i % 2 === 0 ? "bg-gray-600" : "bg-gray-700"}
+            className={i % 2 === 0 ? "bg-[#d5eeff]/20" : "bg-[#a5bdfd]/20"}
           >
             {columns.map((col) => (
               <td key={col.key} className="border px-4 py-2">
@@ -134,11 +136,7 @@ const tabsConfig = {
       { key: "levelName", label: "نام سطح" },
       { key: "classLevelId", label: "ID سطح" },
       { key: "sessionCount", label: "تعداد جلسات" },
-      {
-        key: "days",
-        label: "روزها",
-        render: (val) => val?.join(", "),
-      },
+      { key: "days", label: "روزها", render: (val) => val?.join(", ") },
       {
         key: "startDate",
         label: "تاریخ شروع",
@@ -186,34 +184,34 @@ export default function TablePage() {
 
   const renderContent = () => {
     if (tab.component) return <tab.component />;
-
-    if (loading) return <p>در حال بارگذاری...</p>;
+    if (loading) return <p className="text-gray-300">در حال بارگذاری...</p>;
     if (error) return <p className="text-red-500">خطا: {error}</p>;
-
     return <DataTable columns={tab.columns} data={data} />;
   };
 
   return (
-    <section className="text-center p-6">
-      <h1 className="text-2xl mb-6 text-[#fdb44b] font-semibold">نمایش جدول</h1>
+    <section className="p-6">
+      <h1 className="text-3xl font-bold text-center text-[#5fc9f3] mb-6">
+        نمایش جدول
+      </h1>
 
-      <div className="flex justify-center gap-4 mb-6 flex-wrap">
+      <div className="flex justify-center flex-wrap gap-4 mb-8">
         {Object.entries(tabsConfig).map(([key, t]) => (
           <button
             key={key}
-            className={`px-4 py-2 rounded-md font-medium transition ${
-              activeTab === key
-                ? "bg-[#fdb44b] text-black"
-                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-            }`}
             onClick={() => setActiveTab(key)}
+            className={`px-5 py-3 rounded-lg font-semibold transition-shadow ${
+              activeTab === key
+                ? "bg-[#fdb44b] text-black shadow-lg"
+                : "bg-[#d5eeff]/30 text-[#001833] hover:bg-[#a5bdfd]/50"
+            }`}
           >
             {t.label}
           </button>
         ))}
       </div>
 
-      <div className="bg-gray-800 p-6 rounded-md text-left">
+      <div className="bg-[#001833]/70 p-6 rounded-xl shadow-inner border border-[#5fc9f3]/30">
         {renderContent()}
       </div>
     </section>
