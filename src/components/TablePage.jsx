@@ -107,11 +107,68 @@ const tabsConfig = {
   },
   classContent: {
     label: "کلاس کانتنت",
-    component: () => <p>دیتای کلاس کانتنت</p>,
+    component: () => {
+      const [page, setPage] = useState(1);
+      const limit = 10;
+      const { data, pagination, loading, error } = useFetchData(
+        "/class-contents",
+        page,
+        limit
+      );
+
+      const columns = [
+        { key: "id", label: "ID جلسه" },
+        { key: "name", label: "نام جلسه" },
+        { key: "description", label: "توضیحات" },
+        { key: "book", label: "کتاب" },
+        {
+          key: "classLevelName",
+          label: "نام سطح کلاس",
+          render: (_, item) => item.classLevel?.className,
+        },
+        {
+          key: "levelName",
+          label: "نام سطح",
+          render: (_, item) => item.classLevel?.levelName,
+        },
+        {
+          key: "levelCode",
+          label: "کد سطح",
+          render: (_, item) => item.classLevel?.levelCode,
+        },
+        {
+          key: "className",
+          label: "نام کلاس",
+          render: (_, item) => item.class?.name,
+        },
+        {
+          key: "createdAt",
+          label: "تاریخ ایجاد",
+          render: (val) => formatJalali(val),
+        },
+        {
+          key: "updatedAt",
+          label: "تاریخ بروزرسانی",
+          render: (val) => formatJalali(val),
+        },
+      ];
+
+      if (loading) return <p className="text-gray-300">در حال بارگذاری...</p>;
+      if (error) return <p className="text-red-500">خطا: {error}</p>;
+      if (!data.length) return <p>داده‌ای موجود نیست.</p>;
+
+      return (
+        <div>
+          <DataTable columns={columns} data={data} />
+          <Pagination pagination={pagination} onPageChange={setPage} />
+        </div>
+      );
+    },
   },
+
   messages: {
     label: "مسیجز",
-    endpoint: "/messages",
+    endpoint: "/class-contents",
     columns: [
       { key: "id", label: "ID" },
       { key: "name", label: "نام پیام" },
