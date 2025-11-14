@@ -252,33 +252,39 @@ function DataTable({ columns, data }) {
   if (!data?.length) return <p>داده‌ای موجود نیست.</p>;
 
   return (
-    <table className="w-full text-left border-collapse">
-      <thead>
-        <tr className="bg-[#5fc9f3]/70 text-black">
-          {columns.map((col) => (
-            <th key={col.key} className="border px-4 py-2">
-              {col.label}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, i) => (
-          <tr
-            key={item.id || i}
-            className={i % 2 === 0 ? "bg-[#d5eeff]/20" : "bg-[#a5bdfd]/20"}
-          >
+    <div className="overflow-x-auto mx-auto max-w-full">
+      <table className="w-full text-left border-collapse table-auto">
+        <thead>
+          <tr className="bg-[#5fc9f3]/40 text-white">
             {columns.map((col) => (
-              <td key={col.key} className="border px-4 py-2">
-                {typeof col.render === "function"
-                  ? col.render(item[col.key], item)
-                  : item[col.key]}
-              </td>
+              <th key={col.key} className="border px-4 py-2">
+                {col.label}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {data.map((item, i) => (
+            <tr
+              key={item.id || i}
+              className={
+                i % 2 === 0
+                  ? "bg-[#3f70af] text-white"
+                  : "bg-[#93b5e1] text-white"
+              }
+            >
+              {columns.map((col) => (
+                <td key={col.key} className="border  px-4 py-2">
+                  {typeof col.render === "function"
+                    ? col.render(item[col.key], item)
+                    : item[col.key]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -363,7 +369,9 @@ export default function TablePage() {
     );
   };
 
-  useEffect(() => setPage(1), [activeTab]);
+  useEffect(() => {
+    setPage(1);
+  }, [activeTab]);
 
   return (
     <section className="p-6">
@@ -376,10 +384,10 @@ export default function TablePage() {
           <button
             key={key}
             onClick={() => setActiveTab(key)}
-            className={`px-5 py-3 rounded-lg font-semibold transition-shadow ${
+            className={`px-3 py-2 w-36  rounded-lg font-semibold transition-shadow ${
               activeTab === key
                 ? "bg-[#fdb44b] text-black shadow-lg"
-                : "bg-[#d5eeff]/30 text-[#001833] hover:bg-[#a5bdfd]/50"
+                : " bg-white text-[#001833] hover:bg-[#a5bdfd]/50"
             }`}
           >
             {t.label}
