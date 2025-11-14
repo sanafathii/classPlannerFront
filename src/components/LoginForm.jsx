@@ -42,7 +42,7 @@ export default function LoginForm() {
         toast.success("ورود موفق! در حال هدایت...");
 
         setTimeout(() => {
-          router.push("/");
+          router.push("/upload");
         }, 1200);
       } else {
         toast.error("اطلاعات ورود نادرست است");

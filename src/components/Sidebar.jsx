@@ -2,16 +2,27 @@
 
 import { Upload, Table, LogOut } from "lucide-react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import LogoutModal from "./LogoutModal";
 
-export default function Sidebar({ page, setPage }) {
+export default function Sidebar() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
 
   const menuItems = [
-    { id: "upload", label: "آپلود فایل", icon: <Upload size={20} /> },
-    { id: "table", label: "نمایش جدول", icon: <Table size={20} /> },
+    {
+      id: "upload",
+      label: "آپلود فایل",
+      path: "/upload",
+      icon: <Upload size={20} />,
+    },
+    {
+      id: "tables",
+      label: "نمایش جدول",
+      path: "/tables",
+      icon: <Table size={20} />,
+    },
   ];
 
   const handleLogout = () => {
@@ -30,25 +41,28 @@ export default function Sidebar({ page, setPage }) {
           title="خروج"
         >
           <span className="mr-2">خروج</span>
-
           <LogOut size={30} />
         </button>
 
         <div className="flex flex-row-reverse gap-8 py-3">
-          {menuItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setPage(item.id)}
-              className={`flex items-center gap-3 text-base font-semibold transition px-5 py-3 rounded-lg ${
-                page === item.id
-                  ? "bg-[#00bbf0] text-black"
-                  : "text-gray-300 hover:text-white hover:bg-[#005792]"
-              }`}
-            >
-              {item.icon}
-              <span>{item.label}</span>
-            </button>
-          ))}
+          {menuItems.map((item) => {
+            const active = pathname.startsWith(item.path);
+
+            return (
+              <button
+                key={item.id}
+                onClick={() => router.push(item.path)}
+                className={`flex items-center gap-3 text-base font-semibold transition px-5 py-3 rounded-lg ${
+                  active
+                    ? "bg-[#00bbf0] text-black shadow-md"
+                    : "text-gray-300 hover:text-white hover:bg-[#005792]"
+                }`}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
         </div>
       </nav>
 
