@@ -10,7 +10,7 @@ export default function HomePage() {
 
   return (
     <ProtectedLayout>
-      <div className="flex flex-col h-screen bg-[#00204a] text-white">
+      <div className="flex flex-col h-screen bg-[#004196] text-white">
         <main className="flex-1 p-8 overflow-y-auto">
           {page === "upload" && <UploadPage />}
           {page === "table" && <TablePage />}

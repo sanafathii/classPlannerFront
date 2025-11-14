@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { UploadCloud, Send } from "lucide-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const TABS = [
   { key: "general", label: "جنرال", endpoint: "/levels/upload" },
@@ -22,20 +24,18 @@ export default function UploadPage() {
   const currentTab = TABS.find((t) => t.key === activeTab);
 
   return (
-    <section className="text-center p-6">
-      <h1 className="text-2xl mb-6 text-[#fdb44b] font-semibold">
-        آپلود فایل CSV
-      </h1>
+    <section className="text-center pt-0 pb-6 px-6 bg-[#004196]">
+      <h1 className="text-3xl mb-6 font-bold text-blue-300">آپلود فایل CSV</h1>
 
       <div className="flex justify-center gap-4 mb-6 flex-wrap">
         {TABS.map(({ key, label }) => (
           <button
             key={key}
             onClick={() => setActiveTab(key)}
-            className={`px-4 py-2 rounded-md font-medium transition ${
+            className={`w-36 text-nowrap px-8 py-2 rounded-xl font-medium transition border ${
               activeTab === key
-                ? "bg-[#fdb44b] text-black"
-                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                ? "bg-[#3DD4FF] text-black border-[#0084DE]"
+                : "bg-white text-[#0084DE] border-[#3DD4FF] hover:bg-[#E5F7FF]"
             }`}
           >
             {label}
@@ -89,36 +89,49 @@ function UploadTab({ endpoint }) {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "خطا در آپلود فایل");
+      toast.success("فایل با موفقیت ارسال شد.");
 
-      alert("فایل با موفقیت ارسال شد!");
       setFile(null);
     } catch (err) {
-      alert(`خطا: ${err.message}`);
+      toast.error(`خطا: ${err.message}`);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="bg-[#001833]/70 backdrop-blur-md p-10 rounded-2xl shadow-lg text-center border border-[#00bbf0]/40 w-full max-w-md">
+    <div className="bg-white p-10 rounded-2xl shadow-lg text-center border border-[#3DD4FF]/60 w-full max-w-md">
       <div className="flex justify-center mb-6">
-        <div className="bg-[#00bbf0]/20 p-4 rounded-full">
-          <UploadCloud size={48} className="text-[#00bbf0]" />
+        <div className="bg-[#E5F7FF] p-4 rounded-full">
+          <UploadCloud size={48} className="text-[#0084DE]" />
         </div>
       </div>
 
-      <h2 className="text-xl mb-4 text-[#fdb44b] font-bold">انتخاب فایل CSV</h2>
-      <p className="text-sm text-gray-300 mb-6">
-        لطفاً فقط فایل‌های با فرمت <span className="text-[#fdb44b]">.csv</span>{" "}
-        انتخاب کنید
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+
+      <h2 className="text-xl mb-3 text-[#0084DE] font-bold">انتخاب فایل CSV</h2>
+      <p className="text-sm text-[#0084DE] mb-6">
+        لطفاً فقط فایل‌های با فرمت{" "}
+        <span className="text-[#3DD4FF] font-bold">.csv</span> انتخاب کنید
       </p>
 
       <label
         htmlFor="csvUpload"
-        className="cursor-pointer inline-block bg-[#00bbf0] hover:bg-[#005792] text-white font-semibold py-2 px-6 rounded-xl shadow-md transition"
+        className="cursor-pointer inline-block bg-[#3DD4FF] hover:bg-[#0084DE] text-black font-semibold py-2 px-6 rounded-xl shadow-md transition"
       >
         انتخاب فایل
       </label>
+
       <input
         id="csvUpload"
         type="file"
@@ -129,7 +142,7 @@ function UploadTab({ endpoint }) {
       />
 
       {file && (
-        <p className="mt-4 text-[#00bbf0] text-sm">
+        <p className="mt-4 text-[#0084DE] text-sm">
           فایل انتخاب‌شده: <span className="font-bold">{file.name}</span>
         </p>
       )}
@@ -138,11 +151,14 @@ function UploadTab({ endpoint }) {
         <button
           onClick={handleUpload}
           disabled={loading}
-          className={`mt-6 w-full p-3 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition hover:opacity-90 ${
-            loading ? "opacity-50 cursor-not-allowed" : "bg-[#fdb44b]"
+          className={`mt-6 w-full p-3 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition ${
+            loading
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-[#3DD4FF] hover:bg-[#0084DE] text-black"
           }`}
         >
-          {loading ? "در حال ارسال..." : "ارسال فایل"} <Send size={18} />
+          {loading ? "در حال ارسال..." : "ارسال فایل"}
+          <Send size={18} />
         </button>
       )}
     </div>

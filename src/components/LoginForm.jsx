@@ -56,7 +56,7 @@ export default function LoginForm() {
   return (
     <div className="w-full max-w-sm mx-auto p-6" dir="rtl">
       <ToastContainer
-        position="top-right"
+        position="top-center"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -67,22 +67,22 @@ export default function LoginForm() {
         pauseOnHover
       />
 
-      <h1 className="text-3xl font-bold text-center text-[#005792]">
+      <h1 className="text-3xl font-bold text-center text-[#0084DE]">
         موسسه یوز ایرانی
       </h1>
 
-      <p className="text-center text-sm my-2 text-[#00bbf0]">
+      <p className="text-center text-sm my-2 text-[#3DD4FF]">
         ورود به حساب کاربری
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-6">
         <div className="flex flex-col text-right">
-          <label className="mb-1 font-medium text-[#005792]">ایمیل</label>
+          <label className="mb-1 font-medium text-[#0084DE]">ایمیل</label>
           <input
             type="email"
             {...register("email", { required: "ایمیل الزامی است" })}
-            className="w-full p-3 rounded-xl border outline-none focus:ring-2 focus:ring-[#00bbf0]"
-            style={{ borderColor: "#00bbf0" }}
+            className="w-full text-black p-3 rounded-xl border outline-none focus:ring-2 focus:ring-[#3DD4FF] placeholder:text-gray-500"
+            style={{ borderColor: "#3DD4FF" }}
             placeholder="example@gmail.com"
           />
           {errors.email && (
@@ -93,19 +93,19 @@ export default function LoginForm() {
         </div>
 
         <div className="flex flex-col text-right">
-          <label className="mb-1 font-medium text-[#005792]">رمز عبور</label>
+          <label className="mb-1 font-medium text-[#0084DE]">رمز عبور</label>
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
               {...register("password", { required: "رمز عبور الزامی است" })}
-              className="w-full p-3  rounded-xl border outline-none focus:ring-2 focus:ring-[#00bbf0]"
-              style={{ borderColor: "#00bbf0" }}
+              className="w-full p-3 rounded-xl border outline-none focus:ring-2 focus:ring-[#3DD4FF]  placeholder:text-gray-500"
+              style={{ borderColor: "#3DD4FF" }}
               placeholder="••••••••"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 left-3 flex items-center text-gray-500 hover:text-gray-700"
+              className="absolute text-black inset-y-0 left-3 flex items-center hover:text-gray-700"
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -119,8 +119,7 @@ export default function LoginForm() {
 
         <button
           disabled={isSubmitting}
-          className="w-full p-3 text-white mt-3 font-bold rounded-xl transition hover:opacity-90 disabled:opacity-50"
-          style={{ backgroundColor: "#fdb44b" }}
+          className="w-full p-3 text-white bg-amber-500 mt-3 font-bold rounded-xl transition hover:opacity-90 disabled:opacity-50"
         >
           {isSubmitting ? "در حال ورود..." : "ورود"}
         </button>

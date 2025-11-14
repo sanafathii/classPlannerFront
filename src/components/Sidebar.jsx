@@ -34,7 +34,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <nav className="w-full flex justify-between items-center border-b-2 border-[#00bbf0] bg-[#001833]/60 backdrop-blur-md shadow-lg px-6">
+      <nav className="w-full flex justify-between items-center border-b-2 border-[#3DD4FF] bg-[#003B7F]/60 backdrop-blur-md shadow-lg px-6">
         <button
           onClick={() => setShowLogoutModal(true)}
           className="text-gray-300 flex items-center hover:text-white transition p-2 rounded-full"
@@ -54,8 +54,8 @@ export default function Sidebar() {
                 onClick={() => router.push(item.path)}
                 className={`flex items-center gap-3 text-base font-semibold transition px-5 py-3 rounded-lg ${
                   active
-                    ? "bg-[#00bbf0] text-black shadow-md"
-                    : "text-gray-300 hover:text-white hover:bg-[#005792]"
+                    ? "bg-[#3DD4FF] text-black shadow-md"
+                    : "text-gray-300 hover:text-white hover:bg-[#0084DE]"
                 }`}
               >
                 {item.icon}

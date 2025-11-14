@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="fa">
-      <body className="bg-[#001833] text-white min-h-screen">
+      <body className=" bg-[#004196] text-white min-h-screen">
         {shouldShowSidebar && <Sidebar />}
         <main className={shouldShowSidebar ? "pt-20 px-6" : ""}>
           {children}
