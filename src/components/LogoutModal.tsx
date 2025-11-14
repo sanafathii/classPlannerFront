@@ -1,6 +1,11 @@
 "use client";
 
-export default function LogoutModal({ onClose, onConfirm }) {
+interface LogoutModalProps {
+  onClose: () => void;
+  onConfirm: () => void;
+}
+
+export default function LogoutModal({ onClose, onConfirm }: LogoutModalProps) {
   return (
     <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
       <div className="bg-white text-black rounded-xl p-10 w-96 shadow-xl text-center">

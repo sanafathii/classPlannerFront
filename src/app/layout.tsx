@@ -1,13 +1,17 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../components/Sidebar";
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   const pathname = usePathname();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -16,8 +20,7 @@ export default function RootLayout({ children }) {
     setIsLoggedIn(!!token);
   }, [pathname]);
 
-  const authRoutes = ["/login", "/register"]; // مسیرهای بدون Sidebar
-
+  const authRoutes = ["/login", "/register"];
   const shouldShowSidebar = isLoggedIn && !authRoutes.includes(pathname);
 
   return (
